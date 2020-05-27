@@ -1,2 +1,36 @@
-# portfolioWeb
+# Projeto portfolioWeb
 Projeto de interfaces para atendimento às APIs relacionadas
+
+- [x] **Definições do projeto**
+  - [x] Criar repositório no GitHub
+  - [ ] Criar issue para controle das tarefas
+-------
+- [ ] ** 1- Cadastro, Consulta, Atualização, Remoção e Listagem de**
+  - [ ] Usuários
+  - [ ] Permissões
+  - [ ] Políticas
+  - [ ] Funcionalidades
+  - [ ] Listas
+  - [ ] Repositórios (local/web do usuário para facilitar o preenchimento)
+  - [ ] Documentos
+  - [ ] Dúvidas
+    - [ ] Explicação 
+    - [ ] Exemplo prático
+-------
+- [ ] **2 - Registro de eventos**
+    - [ ] Nome do evento (com sugestão anterior)
+    - [ ] Lista de participantes (com sugestão de Usuários cadastrados no preenchimento)
+    - [ ] Tipo de evento
+    - [ ] Data do evento
+    - [ ] Duração
+    - [ ] Local (manual ou por CEP)
+    - [ ] Clima (Manual/web/CEP)
+    - [ ] Avaliação humor
+    - [ ] Comparativos
+	  - [ ] Intervalo entre o último evento de mesmo:
+		  - [ ] nome
+		  - [ ] tipo
+-------
+- [ ] **3 - Interface administrativa**
+  - [ ] Gerenciamento dos elementos no item 1
+-------
