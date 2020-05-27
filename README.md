@@ -6,7 +6,7 @@ Projeto de interfaces para atendimento às APIs relacionadas
   - [ ] Criar issue para controle das tarefas
 -------
 - [ ] **1 - Cadastro, Consulta, Atualização, Remoção e Listagem de**
-  - [ ] <img src="https://img.icons8.com/ios-glyphs/30/000000/login-as-user.png"/> Usuários</p>
+  - [ ] <img src="https://img.icons8.com/ios-glyphs/30/000000/login-as-user.png"/> Usuários
   - [ ] <img src="https://img.icons8.com/windows/30/000000/test-partial-passed.png"/> Permissões
   - [ ] <img src="https://img.icons8.com/windows/30/000000/privacy-policy.png"/> Políticas
   - [ ] <img src="https://img.icons8.com/android/30/000000/swiss-army-knife.png"/> Funcionalidades
