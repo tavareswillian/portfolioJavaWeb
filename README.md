@@ -33,4 +33,5 @@ Projeto de interfaces para atendimento às APIs relacionadas
 -------
 - [ ] **3 - Interface administrativa**
   - [ ] Gerenciamento dos elementos no item 1
+  - [ ] Gerenciamento dos elementos no item 2
 -------
