@@ -1,4 +1,4 @@
-# Projeto portfolioWeb <img src="https://img.icons8.com/ios/50/000000/management.png"/>
+# Projeto Portfolio Web <img src="https://img.icons8.com/ios/50/000000/management.png"/>
 Projeto de interfaces para atendimento às APIs relacionadas
 
 - [x] **Definições do projeto**
