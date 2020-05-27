@@ -5,7 +5,7 @@ Projeto de interfaces para atendimento às APIs relacionadas
   - [x] Criar repositório no GitHub
   - [ ] Criar issue para controle das tarefas
 -------
-- [ ] ** 1- Cadastro, Consulta, Atualização, Remoção e Listagem de**
+- [ ] **1 - Cadastro, Consulta, Atualização, Remoção e Listagem de**
   - [ ] Usuários
   - [ ] Permissões
   - [ ] Políticas
