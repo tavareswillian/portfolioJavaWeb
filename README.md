@@ -1,6 +1,7 @@
 # Projeto Portfolio Web <img src="https://img.icons8.com/cute-clipart/50/000000/top-navigation-toolbar.png"/>
 Projeto de interfaces para atendimento às APIs relacionadas
 
+-------
 - [x] **Definições do projeto**
   - [x] Criar repositório no GitHub
   - [ ] Criar issue para controle das tarefas
