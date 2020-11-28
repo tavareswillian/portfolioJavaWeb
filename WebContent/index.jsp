@@ -1,233 +1,318 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="us">
 <head>
-<meta charset="ISO-8859-1">
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="js/lista.js"></script>
+	<meta charset="utf-8">
+	<title>Portfólio</title>
+	<link href="js/jquery/jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
 <script>
+function cadastra(tipoCadastro) {
 
-function formToJSON() {
-    var result = {
-        "id" : $('#listaId').val(),
-        "name" : $('#txtName').val(),
-        "descricao" : $('#dsLista').val()
-    };
-
-    $("#dsLista span").each(function(index, elem) {
-
-        result.phones.push({
-            "type" : $("#dsLista #" + elem.id + " input:eq(0)").val(),
-            "number" : $("#dsLista #" + elem.id + " input:eq(1)").val()
-        });
-
-    });
-
-/*     $("#emails span").each(function(index, elem) {
-
-        result.emails.push({
-            "type" : $("#emails #" + elem.id + " input:eq(0)").val(),
-            "address" : $("#emails #" + elem.id + " input:eq(1)").val()
-        });
-
-    }); */
-
-    return (JSON.stringify(result));
+	if(tipoCadastro === "lista") {
+		cadastraLista();
+	} else 	if(tipoCadastro === "usuario") {
+		cadastraUsuario();
+	}
+  
 }
 
-function loadlista(id) {
-    findById(id, function(data) {
-        fillForm(data);
-        $("#form").css({
-            "visibility" : "visible",
-            "display" : "block"
-        });
-        $("#fieldset").html(" Editando Contato ");
-    });
+function hide(idElem){
+	var elemento = document.getElementById(idElem);
+	  if (elemento.style.display === "block") {
+			  elemento.style.display = "none";
+		  }
 }
 
-function clearForm() {
-    $("#fieldset").html("");
-    fillForm({
-        "name" : ""
-    });
+function show(idElem){
+	var elemento = document.getElementById(idElem);
+	  if (elemento.style.display === "none") {
+		  alerta.style.display = "block";
+		  }
 }
 
-function fillForm(lista) {
-
-    $("#listaId").val(lista.idLista);
-
-    $("#txtName").val(lista.nmLista);
-
-    $("#dsLista").html("");
-    if (lista.dsLista != null) {
-        for ( var i = 0; i < lista.dsLista.length; i++) {
-            addInput("#dsLista", lista.dsLista[i].type,
-                    lista.dsLista[i].number);
-        }
-    }
+function cadastraLista(){
+	var nmLista = document.getElementById("nmLista").value;
+	  var dsLista = document.getElementById("dsLista").value;
+	  var alerta = document.getElementById("alerta");
+	  var erro = document.getElementById("erro");
+	  var mensagemAlerta = document.getElementById("mensagemAlerta");
+	  var mensagemErro = document.getElementById("mensagemErro");
+	  erro.style.display = "none";
+	  alerta.style.display = "none";
+	  
+	  if(nmLista === ""){
+		  if (erro.style.display === "none") {
+			  mensagemErro.innerText = "Nome da lista não informado!";
+			  erro.style.display = "block";
+			  } else {
+				  erro.style.display = "none";
+			  }
+	  } else{
+		  if (alerta.style.display === "none") {
+			  mensagemAlerta.innerText = "Dados cadastrados!";
+			  alerta.style.display = "block";
+			  } else {
+				  alerta.style.display = "none";
+			  }
+	  }
 }
 
-function addInput(root, type, value) {
-    var index = $(root).children().length;
-    var html = "<span id='item" + index + "' ><input type='text' value='"
-            + type + "'>";
-    html += "<input type='text' value='" + value + "'>";
-    html += "<input type='button' value='-' onclick='$(\"" + root + " #item"
-            + index + "\").remove()'><br/></span>";
-
-    inputs = $(root).append(html);
+function cadastraUsuario(){
+	  var nmUsuario = document.getElementById("nmUsuario").value;
+	  var dsLogin = document.getElementById("dsLogin").value;
+	  var dsSenha = document.getElementById("dsSenha").value;
+	  var dsConfirmaSenha = document.getElementById("dsConfirmaSenha").value;
+	  var alerta = document.getElementById("alerta");
+	  var erro = document.getElementById("erro");
+	  var mensagemAlerta = document.getElementById("mensagemAlerta");
+	  var mensagemErro = document.getElementById("mensagemErro");
+	  
+	  if(dsSenha == null) {
+		  mensagemErro.innerText = "Senha não digitada! É necessário fornecer uma senha...";
+	  }
+	  
+	  if(dsSenha != dsConfirmaSenha){
+		  mensagemErro.innerText = "As senhas digitadas não são iguais! Tente novamente...";
+		  erro.style.display = "block";
+	  }
+	  
+	 
+	  erro.style.display = "none";
+	  alerta.style.display = "none";
+	  
+	  if(nmUsuario === ""){
+		  if (erro.style.display === "none") {
+			  mensagemErro.innerText = "Nome de usuario não informado!";
+			  erro.style.display = "block";
+			  } else {
+				  erro.style.display = "none";
+			  }
+	  } else{
+		  if (alerta.style.display === "none") {
+			  mensagemAlerta.innerText = "Usuário cadastrados!";
+			  alerta.style.display = "block";
+			  } else {
+				  alerta.style.display = "none";
+			  }
+	  }
 }
 
-
-function saveOrUpdate() {
-    if ($("#listaId").val() != null && $("#listaId").val() != "") {
-        updatelista($('#listaId').val(), formToJSON(), function(data, textStatus, jqXHR) {
-            alert('Contato atualizado com sucesso!');
-            clearForm();
-            $("#form").css({
-                "visibility" : "hidden",
-                "display" : "none"
-            });
-            findAll();
-        });
-    } else {
-        addlista(formToJSON(), function(data, textStatus, jqXHR) {
-            alert('Contato criado com sucesso!');
-            clearForm();
-            $("#form").css({
-                "visibility" : "hidden",
-                "display" : "none"
-            });
-            findAll(renderList);
-        });
-    }
+function limpar(tipoLimpeza){
+	
+	if(tipoLimpeza === 'cadastroLista'){
+		document.getElementById("nmLista").value = "";
+		document.getElementById("dsLista").value = "";
+	}
 }
-
-function newlista() {
-    clearForm();
-    $("#form").css({
-        "visibility" : "visible",
-        "display" : "block"
-    });
-    $("#fieldset").html(" Novo Contato ");
-}
-
-function search() {
-    findById($("#searchName").val(), renderList);
-}
-
-function removelista(id) {
-    deletelista(id, function(data, textStatus, jqXHR) {
-        alert('Contato removido com sucesso!');
-        findAll(renderList);
-    });
-}
-
-function cancel() {
-
-    $("#form").css({
-        "visibility" : "hidden",
-        "display" : "none"
-    });
-    clearForm();
-}
-
-function renderList(data) {
-
-    var html = "";
-
-    html += "<ul>";
-
-    for ( var i = 0; i < data.length; i++) {
-        var lista = data[i];
-
-        /* alert('Registro: ' + lista.idLista); */
-        
-        html += "<li><strong><a href='#' onclick='loadlista("
-                + lista.idLista + ")'>#" + lista.idLista + " - " + lista.nmLista
-                + "</a></strong>";
-
-        if (lista.dsLista != null && lista.dsLista.length > 0) {
-            html += " | " + lista.dsLista + " | ";
-        }
-/* 
-        if (lista.emails != null && lista.emails.length > 0) {
-            html += " <a href='mailto:" + lista.emails[0].address + "'>"
-                    + lista.emails[0].address + "</a> ";
-        } */
-
-        html += "<input type='button' value='-' title='Apagar este contato' onclick='removelista("
-                + lista.idLista + ")'>";
-
-        html += "</li>";
-
-    }
-
-    html += "</ul>";
-
-    $("#result").html(html);
-}
-
-$(function() {
-    
-    findAll(renderList);
-
-    $("#searchName").keyup(function(event) {
-        if (event.keyCode == 13) {
-            $("#btnSearch").click();
-        }
-    });
-
-});
-
-
 </script>
-<title>Home</title>
 </head>
 <body>
-<h1>${mensagem }</h1>
 
-    <div id="actions">
+<h1>Portifólio</h1>
 
-        <fieldset>
-            <legend>Buscar Lista</legend>
-            <label>Nome: </label> <input type="text" id="searchName">
-            <input type="button" id="btnSearch" value="Buscar"
-                onclick="search();">
-        </fieldset>
+<div class="ui-widget">
+	<p>Apresentação da aplicação cliente de portfólio Java</p>
+</div>
 
-    </div>
-    
-     <div id="result"></div>
+<div class="ui-widget" id="alerta" hidden="hidden" onclick="hide('alerta');">
+		<a href="#" title="Clique para fechar esta mensagem" style="text-decoration: none;">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-info"
+						style="float: left; margin-right: .3em;"></span> <strong>Sucesso:</strong>
+					<span id="mensagemAlerta"></span>
+				</p>
+			</div>
+		</a>
+	</div>
+	<div class="ui-widget" id="erro" hidden="hidden"
+		onclick="hide('erro');">
+		<a href="#" title="Clique para fechar esta mensagem" style="text-decoration: none;">
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+				<p>
+					<span class="ui-icon ui-icon-alert"	style="float: left; margin-right: .3em;"></span> <strong>Atenção:
+					</strong> <span id="mensagemErro"></span>
+				</p>
+			</div>
+		</a>
+	</div>
+	<br>
+<!-- <div class="ui-widget" hidden="hidden">
+	<div class="ui-state-default ui-corner-all" style="padding: 0 .7em;">
+		<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+		<strong>Alert:</strong><span id="novo"></span></p>
+	</div>
+</div> -->
+<!-- Tabs -->
+<h2 class="demoHeaders">Cadastros</h2>
+<div id="tabs" style="height:300px">
+	<ul>
+		<li><a href="#usuarios">Usuários<span class="ui-icon ui-icon-person" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#listas">Listas<span class="ui-icon ui-icon-note" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#funcionalidades">Funcionalidades<span class="ui-icon ui-icon-wrench" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#documentos">Documentos<span class="ui-icon ui-icon-document" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#duvidas">Dúvidas<span class="ui-icon ui-icon-help" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#eventos">Eventos<span class="ui-icon ui-icon-calendar" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#perfis">Perfis<span class="ui-icon ui-icon-contact" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#permissoes">Permissões<span class="ui-icon ui-icon-locked" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#politicas">Políticas<span class="ui-icon ui-icon-suitcase" style="float: left; margin-right: .12em;"></span></a></li>
+		<li><a href="#repositorios">Repositórios<span class="ui-icon ui-icon-folder-open" style="float: left; margin-right: .12em;"></span></a></li>
+		
+	</ul>
+	<%@include file="cadastros/cadastro_usuario.jsp" %>
+	<%@include file="cadastros/cadastro_lista.jsp" %>
+	<div id="funcionalidades">Cadastro de funcionalidades.</div>
+	<div id="documentos">Cadastro de documentos.</div>
+	<div id="duvidas">Cadastro de dúvidas.</div>
+	<div id="eventos">Cadastro de eventos.</div>
+	<div id="perfis">Cadastro de perfis.</div>
+	<div id="permissoes">Cadastro de permissões.</div>
+	<div id="politicas">Cadastro de políticas.</div>
+	<div id="repositorios">Cadastro de repositórios.</div>
+</div>
 
-    <input type="button" value="Novo" onclick="newlista();">
+<script src="js/jquery/external/jquery/jquery.js"></script>
+<script src="js/jquery/jquery-ui.js"></script>
+<script>
+$( "#accordion" ).accordion();
 
-    <br />
-    <br />
+var availableTags = [
+	"ActionScript",
+	"AppleScript",
+	"Asp",
+	"BASIC",
+	"C",
+	"C++",
+	"Clojure",
+	"COBOL",
+	"ColdFusion",
+	"Erlang",
+	"Fortran",
+	"Groovy",
+	"Haskell",
+	"Java",
+	"JavaScript",
+	"Lisp",
+	"Perl",
+	"PHP",
+	"Python",
+	"Ruby",
+	"Scala",
+	"Scheme"
+];
+$( "#autocomplete" ).autocomplete({
+	source: availableTags
+});
 
-    <div id="form" style="visibility: hidden; display: none;">
+$( "#button" ).button();
+$( "#button-icon" ).button({
+	icon: "ui-icon-gear",
+	showLabel: false
+});
 
-        <form>
-            <fieldset>
-                <legend id="fieldset"></legend>
-                <input id="listaId" type="hidden"> <label
-                    for="txtName">Nome: </label> <input id="txtName"
-                    type="text" name="name" /><br /> Phones: <input
-                    type="button" value="+"
-                    onclick="addInput('#phones', '', '')">
-                <div id="phones"></div>
-                E-mails: <input type="button" value="+"
-                    onclick="addInput('#emails', '', '')">
-                <div id="emails"></div>
-                <br /> <input id="btnSave" type="button" value="Salvar"
-                    onclick="saveOrUpdate();"> <input
-                    id="btnCancel" type="reset" value="Cancelar"
-                    onclick="cancel();">
+$( "#radioset" ).buttonset();
 
-            </fieldset>
-        </form>
-    </div>
+$( "#controlgroup" ).controlgroup();
+
+$( "#tabs" ).tabs();
+
+$( "#dialog" ).dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		{
+			text: "Ok",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+
+// Link to open the dialog
+$( "#dialog-link" ).click(function( event ) {
+	$( "#dialog" ).dialog( "open" );
+	event.preventDefault();
+});
+
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+$( "#slider" ).slider({
+	range: true,
+	values: [ 17, 67 ]
+});
+
+$( "#progressbar" ).progressbar({
+	value: 20
+});
+
+$( "#spinner" ).spinner();
+
+$( "#menu" ).menu();
+
+$( "#tooltip" ).tooltip();
+
+$( "#selectmenu" ).selectmenu();
+
+// Hover states on the static widgets
+$( "#dialog-link, #icons li" ).hover(
+	function() {
+		$( this ).addClass( "ui-state-hover" );
+	},
+	function() {
+		$( this ).removeClass( "ui-state-hover" );
+	}
+);
+</script>
 </body>
 </html>

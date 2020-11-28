@@ -32,16 +32,16 @@ function findById(id, callback) {
 	});
 }
 
-function addContact(contact, callback) {
+function addlista(lista, callback) {
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
 		url : rootURL,
 		dataType : "json",
-		data : contact,
+		data : lista,
 		success : callback,
 		error : function(jqXHR, textStatus, errorThrown) {
-			alert('Erro criando contato: ' + jqXHR.responseText);
+			alert('Erro criando lista: ' + jqXHR.responseText);
 		}
 	});
 }
