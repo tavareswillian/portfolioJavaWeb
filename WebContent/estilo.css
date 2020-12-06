@@ -1,243 +1,91 @@
-@charset "ISO-8859-1";
-*{
-  font-family: 'Open Sans', sans-serif;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  box-sizing: border-box;
+@charset "UTF-8";
+
+input {
+	margin-bottom: 0.5em
+};
+
+button{
+	margin-right: 0.5em
+}
+body {
+	font-family: "Trebuchet MS", sans-serif;
+	margin: 50px;
 }
 
-main{
-  padding: 5%;
+.demoHeaders {
+	margin-top: 0em;
 }
 
-header h1{
-  font-size: 1.5rem;
+#dialog-link {
+	padding: .4em 1em .4em 20px;
+	text-decoration: none;
+	position: relative;
 }
 
-.barra{
-  justify-content: space-between;
-  display: flex;
-  align-items: center; 
-  background: #339999;
-  color: rgba(255, 255, 255, 0.97);
+#dialog-link span.ui-icon {
+	margin: 0 5px 0 0;
+	position: absolute;
+	left: .2em;
+	top: 50%;
+	margin-top: -8px;
 }
 
-.barra :first-child{    /* icone info */
-  padding-left: 5%;
+#icons {
+	margin: 0;
+	padding: 0;
 }
 
-.barra :last-child{   /* icone voltar */
-  padding-right: 5%;
+#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
 }
 
-#info,                   
-#voltar{                  
-  font-size: 50px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  cursor: pointer;
+#icons span.ui-icon {
+	float: left;
+	margin: 0 4px;
 }
 
-
-/* PESQUISAR */
-
-#search{
-  font-size: 40px;
-  padding-left: 1.5rem;
+.fakewindowcontain .ui-widget-overlay {
+	position: absolute;
 }
 
-.home input[type="text"]{
-  padding-left: 4rem;
+select {
+	width: 200px;
 }
 
-.input-container{
-  position: relative;
+.topnav {
+  overflow: hidden;
+  background-color: #333;
 }
 
-.input-container input{
-  border-radius: 50px;
-  margin-bottom: 100px;
-  margin-top: 150px;
-  display: flex;
-  height: 90px;
-  width: 100%; 
-  font-size: 20px;
-  border: 1px solid;
-  outline: none;
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-.input-container i{
-  position: absolute;
-  line-height: 95px;
+.topnav span {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-/* LISTA DO DOS CONTATOS ADICIONADOS */
-
-li{
-  font-size: 16px;
-  border-top: 1px solid #ddd;
-  padding: 20px 0px 20px 0px;
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
 
-#load :last-child{
-  border-bottom: 1px solid #ddd;
-}
-
-
-/* INPUTS E SELECTS DA CLASS(.)CADASTRO */
-.cadastro form :nth-child(1){
-  display: flex;
-  flex-direction: column;
-  grid-area: nome;
-}
-
-.cadastro form :nth-child(2){
-  display: flex;
-  flex-direction: column;
-  grid-area: cpf;
-}
-
-.cadastro form :nth-child(3){
-  display: flex;
-  flex-direction: column;
-  grid-area: sexo;
-}
-
-.cadastro form :nth-child(4){
-  display: flex;
-  flex-direction: column;
-  grid-area: email;
-}
-
-.cadastro form :nth-child(5){
-  display: flex;
-  flex-direction: column;
-  grid-area: telefone;
-}
-
-.cadastro form :nth-child(6){
-  display: flex;
-  flex-direction: column;
-  grid-area: nascimento;
-}
-
-.cadastro form :nth-child(7){
-  display: flex;
-  flex-direction: column;
-  grid-area: estado;
-}
-
-.cadastro form :nth-child(8){
-  display: flex;
-  flex-direction: column;
-  grid-area: cidade;
-}
-
-.cadastro select,
-.cadastro input{
-  height: 90px;
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 35px; 
-  font-size: 20px;
-  border: 1px solid;
-  outline: none;
-}
-
-select,
-input[type="date"]{
-  line-height: 90px;
-}
-
-.cadastro input[type="text"]{
-  padding-left: 20px;
-}
-
-.cadastro input[type="number"]{
-  padding-left: 20px;
-}
-
-.cadastro input[type="date"]{
-  padding-left: 10px;
-}
-
-.cadastro input[type="phone"]{
-  padding-left: 20px;
-}
-
-.cadastro input[type="email"]{
-  padding-left: 20px;
-}
-
-.cadastro select{
-  padding-left: 20px;
-}
-
-label{
-  font-size: 1.5rem;
-}
-
-.styled-select select{
-   -webkit-appearance: none;
-}
-
-#nascimento{
-  flex-direction: row; 
-}
-
-
-/* BOTÕES REMOVER E SALVAR */
-
-#btnremover,
-#btnsalvar{
-  border: none;
-  justify-content: center;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.5rem;
-}
-
-#btnsalvar{
-  background: #339933;
-}
-
-#btnremover{
-  background: #993333;
-}
-
-
-/* FLOATING BUTTON */
-
-#add{
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
-  font-size: 80px;
-  color: rgba(255, 51, 89, 0.95);
-  cursor: pointer;
-}
-
-
-
-@media screen and (min-width: 600px){
-  .cadastro form{
-    display: grid;
-
-    grid-template-areas: "nome nome"
-                         "cpf sexo"
-                         "email email"
-                         "nascimento telefone"
-                         "estado cidade";
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 1.5rem;
-  }
-  
-  .button-container-button{
-    display: flex;
-  }
-  
-  #btnsalvar{
-    margin-right: 1.5rem;
-  }
+.topnav a.active {
+  background-color: #ff8040;
+  color: white;
 }
