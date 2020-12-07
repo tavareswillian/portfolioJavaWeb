@@ -26,7 +26,7 @@ public class Principal extends HttpServlet {
 		super();
 		System.out.println("Servlet Principal inicada...");
 		UserService.carregaUsuarios();
-		PageService.carregaDadosPaginas();
+//		PageService.carregaDadosPaginas();
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,11 +41,11 @@ public class Principal extends HttpServlet {
 			setAcaoRealizada(acaoRealizada);
 			if(currentSession != null) {
 				
-				String path = PageService.listaPathPages.get(acaoRealizada);
+//				String path = PageService.listaPathPages.get(acaoRealizada);
 				
-				request.setAttribute("menuList", PageService.loadMenuList());
-				request.setAttribute("optionList", PageService.obtemMenuOpcoes(path));
-				request.setAttribute("functionList", PageService.getFunctionList());
+				request.setAttribute("menuList", PageService.loadMenuList(username));
+//				request.setAttribute("optionList", PageService.obtemMenuOpcoes(path));
+//				request.setAttribute("functionList", PageService.getFunctionList());
 				
 				if(!(acaoRealizada.equals("Login") || acaoRealizada.equals("Sair"))) {
 					String mensagem  = "Bem vindo(a) "+ currentSession.getAttribute("username").toString() +"!";

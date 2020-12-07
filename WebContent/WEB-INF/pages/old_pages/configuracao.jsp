@@ -7,7 +7,7 @@
 <title></title>
 </head>
 <body>
-	<%@include file="configuracoes/configura_usuario.jsp" %>
+<%-- 	<%@include file="configuracoes/configura_usuario.jsp" %>
 	<%@include file="configuracoes/configura_lista.jsp" %>
 	<%@include file="configuracoes/configura_funcionalidade.jsp" %>
 	<%@include file="configuracoes/configura_documento.jsp" %>
@@ -16,6 +16,6 @@
 	<%@include file="configuracoes/configura_perfil.jsp" %>
 	<%@include file="configuracoes/configura_permissao.jsp" %>
 	<%@include file="configuracoes/configura_politica.jsp" %>
-	<%@include file="configuracoes/configura_repositorio.jsp" %>
+	<%@include file="configuracoes/configura_repositorio.jsp" %> --%>
 </body>
 </html>

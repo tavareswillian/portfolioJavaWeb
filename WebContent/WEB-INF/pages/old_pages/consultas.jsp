@@ -7,7 +7,7 @@
 <title></title>
 </head>
 <body>
-	<%@include file="consultas/consulta_usuario.jsp" %>
+<%-- 	<%@include file="consultas/consulta_usuario.jsp" %>
 	<%@include file="consultas/consulta_lista.jsp" %>
 	<%@include file="consultas/consulta_funcionalidade.jsp" %>
 	<%@include file="consultas/consulta_documento.jsp" %>
@@ -16,6 +16,6 @@
 	<%@include file="consultas/consulta_perfil.jsp" %>
 	<%@include file="consultas/consulta_permissao.jsp" %>
 	<%@include file="consultas/consulta_politica.jsp" %>
-	<%@include file="consultas/consulta_repositorio.jsp" %>
+	<%@include file="consultas/consulta_repositorio.jsp" %> --%>
 </body>
 </html>
