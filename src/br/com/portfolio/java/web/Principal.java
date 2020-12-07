@@ -34,10 +34,10 @@ public class Principal extends HttpServlet {
 		String pathClass = "br.com.portfolio.java.web.acao.";
 		acaoRealizada = request.getParameter("acao");	
 		setCurrentSession(request.getSession());
+		if(acaoRealizada == null) setAcaoRealizada("Login");
 		
-		if(!UserService.verificaSessao(getCurrentSession())) {
-			if(acaoRealizada == null) setAcaoRealizada("Login");
-		} else {
+		if(UserService.verificaSessao(getCurrentSession())) {
+			if(acaoRealizada == null) setAcaoRealizada("Iniciar");
 			setAcaoRealizada(acaoRealizada);
 			if(currentSession != null) {
 				
@@ -94,6 +94,4 @@ public class Principal extends HttpServlet {
 	public static void setAcaoRealizada(String acaoRealizada) {
 		Principal.acaoRealizada = acaoRealizada;
 	}
-
-
 }

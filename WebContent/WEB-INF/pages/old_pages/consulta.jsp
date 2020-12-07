@@ -10,9 +10,10 @@
 <body>
 	<div class="topnav">
 		<a href="?acao=Cadastrar">Cadastros</a> 
-		<a href="?acao=Consultar">Consultas</a>
-		<a class="active" href="?acao=Configurar">Configurações</a>
+		<a class="active" href="?acao=Consultar">Consultas</a>
+		<a href="?acao=Configurar">Configurações</a>
 		<a href="?acao=Sair" style="float: right;">Sair</a> 
+		<%-- <span style="float: right; color: #ff8040"> Bem vindo(a)&nbsp;${username} </span> --%>
 		<span style="float: right; color: #ff8040"> ${mensagem} </span>
 	</div>
 	<h1>Portifólio</h1>
@@ -55,7 +56,7 @@
 	</div>
 </div> -->
 	<!-- Tabs -->
-	<h2 class="demoHeaders">Configurações</h2>
+	<h2 class="demoHeaders">Consultas</h2>
 	<div id="tabs" style="height: 300px">
 		<ul>
 			<li><a href="#usuarios">Usuários
@@ -80,7 +81,7 @@
 									<span class="ui-icon ui-icon-folder-open" style="float: left; margin-right: .12em;"></span></a></li>
 
 		</ul>
-		<%@include file="cadastro.jsp"%>
+		<%-- <%@include file="consultas.jsp"%> --%>
 	</div>
 
 	<script src="js/jquery/external/jquery/jquery.js"></script>

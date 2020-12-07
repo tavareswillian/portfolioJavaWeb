@@ -24,33 +24,10 @@
 		<p>Apresentação da aplicação cliente de portfólio Java</p>
 	</div>
 
-	<div class="ui-widget" id="alerta" hidden="hidden"
-		onclick="hide('alerta');">
-		<span title="Clique para fechar esta mensagem"
-			style="text-decoration: none;">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
-				<p>
-					<span class="ui-icon ui-icon-info"
-						style="float: left; margin-right: .3em;"></span> <strong>Sucesso:</strong>
-					<span id="mensagemAlerta"></span>
-				</p>
-			</div>
-		</span>
-	</div>
-	<div class="ui-widget" id="erro" hidden="hidden"
-		onclick="hide('erro');">
-		<span title="Clique para fechar esta mensagem"
-			style="text-decoration: none;">
-		<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-			<p>
-				<span class="ui-icon ui-icon-alert"
-					style="float: left; margin-right: .3em;"></span> <strong>Atenção:
-				</strong> <span id="mensagemErro"></span>
-			</p>
-		</div>
-		</span>
-	</div>
+	<jsp:include page="alerts/alert_basic.jsp" />
+	<jsp:include page="alerts/alert_error.jsp" />
 	<br>
+	
 	<!-- Tabs -->
 	<h2 class="demoHeaders">Cadastros</h2>
 	<div id="tabs" style="height: 300px">
@@ -61,73 +38,13 @@
 					</li>
 			</c:forEach>
 		</ul>	
-		<jsp:include page="${menuBody }" />
+		<c:forEach items="${menuBody}" var="menuItem">
+			<jsp:include page="${menuItem}" />
+		</c:forEach>
 	</div>
 
 	<script src="js/jquery/external/jquery/jquery.js"></script>
 	<script src="js/jquery/jquery-ui.js"></script>
-	<script>
-		$("#button").button();
-		$("#button-icon").button({
-			icon : "ui-icon-gear",
-			showLabel : false
-		});
-
-		$("#radioset").buttonset();
-
-		$("#controlgroup").controlgroup();
-
-		$("#tabs").tabs();
-
-		$("#dialog").dialog({
-			autoOpen : false,
-			width : 400,
-			buttons : [ {
-				text : "Ok",
-				click : function() {
-					$(this).dialog("close");
-				}
-			}, {
-				text : "Cancel",
-				click : function() {
-					$(this).dialog("close");
-				}
-			} ]
-		});
-
-		// Link to open the dialog
-		$("#dialog-link").click(function(event) {
-			$("#dialog").dialog("open");
-			event.preventDefault();
-		});
-
-		$("#datepicker").datepicker({
-			inline : true
-		});
-
-		$("#slider").slider({
-			range : true,
-			values : [ 17, 67 ]
-		});
-
-		$("#progressbar").progressbar({
-			value : 20
-		});
-
-		$("#spinner").spinner();
-
-		$("#menu").menu();
-
-		$("#tooltip").tooltip();
-
-		$("#selectmenu").selectmenu();
-
-		// Hover states on the static widgets
-		$("#dialog-link, #icons li").hover(function() {
-			$(this).addClass("ui-state-hover");
-		}, function() {
-			$(this).removeClass("ui-state-hover");
-		});
-	</script>
+	<script src="js/items_interface.js"></script>
 </body>
 </html>
