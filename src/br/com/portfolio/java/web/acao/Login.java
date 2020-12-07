@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.portfolio.java.web.Principal;
 import br.com.portfolio.java.web.dto.Usuario;
+import br.com.portfolio.java.web.service.UserService;
 import br.com.portfolio.java.web.util.Acao;
 
 public class Login implements Acao {
@@ -29,8 +30,8 @@ public class Login implements Acao {
 			request.setAttribute("mensagem", mensagem);
 			
 			return true;
-		} else if(Principal.validaLogin(new Usuario(userName,password))) {
-			Principal.adicionaSessao(sessao);
+		} else if(UserService.validaLogin(new Usuario(userName,password))) {
+			UserService.adicionaSessao(sessao);
 			Principal.setUsername(userName);
 			sessao.setAttribute("username", userName);
 			targetPage = "Cadastrar";

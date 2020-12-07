@@ -2,9 +2,9 @@ package br.com.portfolio.java.web.acao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import br.com.portfolio.java.web.Principal;
+import br.com.portfolio.java.web.service.UserService;
 import br.com.portfolio.java.web.util.Acao;
 
 public class Sair implements Acao {
@@ -18,7 +18,7 @@ public class Sair implements Acao {
 		request.setAttribute("targetPage", "login.jsp");
 		request.setAttribute("mensagem", mensagem);
 		
-		Principal.removeSessao(Principal.getCurrentSession());
+		UserService.removeSessao(Principal.getCurrentSession());
 		
 		return true;
 	}
