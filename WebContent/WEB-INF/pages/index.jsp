@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="us">
+
 <head>
 <meta charset="utf-8">
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -29,7 +30,7 @@
 	<br>
 	
 	<!-- Tabs -->
-	<h2 class="demoHeaders">Cadastros</h2>
+	<h2 class="demoHeaders">${menuTitleList }</h2>
 	<div id="tabs" style="height: 300px">
 		<ul>
 			<c:forEach items="${optionList}" var="option">
@@ -41,8 +42,16 @@
 		<c:forEach items="${menuBody}" var="menuItem">
 			<jsp:include page="${menuItem}" />
 		</c:forEach>
+		
+<%-- 		<span>Funcionalidades cadastradas:</span>
+		<ul>
+			<c:forEach items="${listaFuncionalidades}" var="funcionalidade">
+				<li> ${funcionalidade.nmFuncionalidade} </li>
+			</c:forEach>
+		</ul> --%>
 	</div>
-
+<div>
+</div>
 	<script src="js/jquery/external/jquery/jquery.js"></script>
 	<script src="js/jquery/jquery-ui.js"></script>
 	<script src="js/items_interface.js"></script>

@@ -13,7 +13,7 @@
 		<a class="active" href="?acao=Consultar">Consultas</a>
 		<a href="?acao=Configurar">Configurações</a>
 		<a href="?acao=Sair" style="float: right;">Sair</a> 
-		<%-- <span style="float: right; color: #ff8040"> Bem vindo(a)&nbsp;${username} </span> --%>
+		<%-- <span style="float: right; color: #ff8040"> Bem vindo(a)&nbsp;${usr} </span> --%>
 		<span style="float: right; color: #ff8040"> ${mensagem} </span>
 	</div>
 	<h1>Portifólio</h1>

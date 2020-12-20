@@ -17,7 +17,7 @@
 		</c:forEach>
 		<a href="?acao=Sair" style="float: right;">Sair</a> <span
 			style="float: right; color: #ff8040"> Bem
-			vindo(a)&nbsp;${username}!</span>
+			vindo(a)&nbsp;${usr}!</span>
 	</div>
 	<h1>${pageAttrib.titlePage }</h1>
 	<div class="ui-widget">

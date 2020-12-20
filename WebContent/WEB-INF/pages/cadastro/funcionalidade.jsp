@@ -1,33 +1,4 @@
-<script>
-function cadastraNova(){
-	var jsonFuncionalidade = {
-	        "nmFuncionalidade" : $('#nmFuncionalidade').val(),
-	        "dsFuncionalidade" : $('#dsFuncionalidade').val(),
-	        "sourcePage" : $('#sourcePage').val(),
-	        "pageLink" : $('#pageLink').val(),
-	        "iconType" : $('#iconType').val()
-	};
-	
-	cadastraFuncionalidade(JSON.stringify(jsonFuncionalidade));
-}
-
-function cadastraFuncionalidade(funcionalidade){
-
-	var rootURL = "http://localhost:8080/funcionalidade";
-	var erro = "";
-	$.ajax({
-			type : 'POST',
-			contentType : 'application/json',
-			url : rootURL,
-			dataType : "json",
-			data : funcionalidade,
-			success : function(){ alert('ok!');},
-			error : alert(erro); // Adicionar a mensagem da exceção aqui
-		});
-}
-</script>
-
-<div id="funcionalidades"><!-- Controlgroup -->
+<div id="funcionalidade"><!-- Controlgroup -->
 <fieldset>
 	<legend>Dados da nova funcionalidade</legend>
 		<div id="controlgroup">

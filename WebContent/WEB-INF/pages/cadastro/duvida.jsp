@@ -1,4 +1,4 @@
-<div id="duvidas"><!-- Controlgroup -->
+<div id="duvida"><!-- Controlgroup -->
 <fieldset>
 	<legend>Dados da nova lista</legend>
 		<div id="controlgroup">

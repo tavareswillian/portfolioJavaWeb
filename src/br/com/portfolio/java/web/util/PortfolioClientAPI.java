@@ -1,117 +1,243 @@
 package br.com.portfolio.java.web.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import br.com.portfolio.java.web.dto.Autenticador;
+import br.com.portfolio.java.web.model.Funcionalidade;
 
 public class PortfolioClientAPI {
-	
-	private WebTarget baseTarget;
-	
-	public PortfolioClientAPI(String serviceUrl) {
-		Client client = ClientBuilder.newClient();
 
-		baseTarget = client.target(serviceUrl);
-	}
-	
-	public List<Object> findAll() {
-		Invocation.Builder invocationBuilder = baseTarget
-				.request(MediaType.APPLICATION_JSON);
+	public static List<Funcionalidade> obtemFuncionalidades(){
+		ArrayList<Funcionalidade> lista = null;
 
-		Response response = invocationBuilder.get();
+		try {
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro listando os recursos");
+			URL url = new URL("http://localhost:8080/funcionalidade/listar");
+
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP Error code : "
+						+ conn.getResponseCode());
+			}
+			InputStreamReader in = new InputStreamReader(conn.getInputStream());
+			BufferedReader br = new BufferedReader(in);
+			String output;
+			String json ="";
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+				json += output;
+			}
+			conn.disconnect();
+
+			Gson gson = new Gson();
+			Type tipoLista = new TypeToken<ArrayList<Funcionalidade>>() {}.getType();
+			lista = gson.fromJson(json, tipoLista);
+
+			for(Funcionalidade funcionalidade : lista)
+			{
+				System.out.println(funcionalidade.getNmFuncionalidade());
+			}
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
-
-		return response.readEntity(new GenericType<List<Object>>() {
-		});
-
+		return lista;
 	}
 
-	public List<Object> findByName(String name) {
+	public static ArrayList<Autenticador> obtemAutenticadores(){
+		ArrayList<Autenticador> lista = null;
 
-		WebTarget searchTarget = baseTarget.path("/find/" + name);
+		try {
 
-		Invocation.Builder invocationBuilder = searchTarget
-				.request(MediaType.APPLICATION_JSON);
+			URL url = new URL("http://localhost:8080/autenticador/listar");
 
-		Response response = invocationBuilder.get();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP Error code : "
+						+ conn.getResponseCode());
+			}
+			InputStreamReader in = new InputStreamReader(conn.getInputStream());
+			BufferedReader br = new BufferedReader(in);
+			String output;
+			String json ="";
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+				json += output;
+			}
+			conn.disconnect();
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro listando o recurso");
+			Gson gson = new Gson();
+			Type tipoLista = new TypeToken<ArrayList<Funcionalidade>>() {}.getType();
+			lista = gson.fromJson(json, tipoLista);
+
+			for(Autenticador autenticador : lista)
+			{
+				System.out.println(autenticador.getHashSessao());
+			}
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
-
-		return response.readEntity(new GenericType<List<Object>>() {
-		});
-
+		return lista;
 	}
 
-	public Object findById(int id) {
+	public static Autenticador obtemAutenticador(String idAutenticador){
+		Autenticador autenticador = null;
 
-		WebTarget searchTarget = baseTarget.path("/" + id);
+		try {
 
-		Invocation.Builder invocationBuilder = searchTarget
-				.request(MediaType.APPLICATION_JSON);
+			URL url = new URL("http://localhost:8080/autenticador/" + idAutenticador);
 
-		Response response = invocationBuilder.get();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "application/json");
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP Error code : "
+						+ conn.getResponseCode());
+			}
+			InputStreamReader in = new InputStreamReader(conn.getInputStream());
+			BufferedReader br = new BufferedReader(in);
+			String output;
+			String json ="";
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
+				json += output;
+			}
+			conn.disconnect();
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro recuperando o recurso");
+			Gson gson = new Gson();
+			Type tipoLista = new TypeToken<ArrayList<Funcionalidade>>() {}.getType();
+			autenticador = (Autenticador) gson.fromJson(json, tipoLista);
+
+			System.out.println(autenticador.getHashSessao());
+
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
-
-		return response.readEntity(Object.class);
+		return autenticador;
 	}
 
-	public Object add(Object resource) {
+	public static String addAutenticador(Autenticador autenticador){
 
-		Invocation.Builder invocationBuilder = baseTarget
-				.request(MediaType.APPLICATION_JSON);
+		String resultado = "";
+		try {
 
-		Response response = invocationBuilder.post(Entity.entity(resource,
-				MediaType.APPLICATION_JSON));
+			URL url = new URL("http://localhost:8080/autenticador");
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro criando o recurso");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setDoOutput(true);
+
+			String autenticadorEnviado = "{ expirado:" + autenticador.isExpirado() +
+					",hashSessao:" + autenticador.getHashSessao() +"}";
+
+			try(OutputStream os = conn.getOutputStream()) {
+				byte[] input = autenticadorEnviado.getBytes("utf-8");
+				os.write(input, 0, input.length);			
+			}
+
+			try(BufferedReader br = new BufferedReader(
+					new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+				StringBuilder response = new StringBuilder();
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
+				resultado = response.toString();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
-
-		return response.readEntity(Object.class);
-
+		return resultado;
 	}
 
-	public void update(Object resource, String idResource) {
-		WebTarget updateTarget = baseTarget.path("/" + idResource);//resource.getId());
+	public static String addAutenticador(String idSessao){
 
-		Invocation.Builder invocationBuilder = updateTarget
-				.request(MediaType.APPLICATION_JSON);
+		String resultado = "";
+		try {
 
-		Response response = invocationBuilder.put(Entity.entity(resource,
-				MediaType.APPLICATION_JSON));
+			URL url = new URL("http://localhost:8080/autenticador");
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro atualizando o recurso");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setDoOutput(true);
+
+			String autenticadorEnviado = "{hashSessao:" + idSessao +"}";
+
+			try(OutputStream os = conn.getOutputStream()) {
+				byte[] input = autenticadorEnviado.getBytes("utf-8");
+				os.write(input, 0, input.length);			
+			}
+
+			try(BufferedReader br = new BufferedReader(
+					new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+				StringBuilder response = new StringBuilder();
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
+				resultado = response.toString();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
+		return resultado;
 	}
 
-	public void delete(Object resource, String idNameResource, String idResource) {
-//		WebTarget deleteTarget = baseTarget.queryParam("contactId", idResource);
-		WebTarget deleteTarget = baseTarget.queryParam(idNameResource, idResource);
+	public static String removeAutenticador(String idSessao) {
 
-		Invocation.Builder invocationBuilder = deleteTarget
-				.request(MediaType.APPLICATION_JSON);
+		String resultado = "";
+		try {
 
-		Response response = invocationBuilder.delete();
+			URL url = new URL("http://localhost:8080/autenticador");
 
-		if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-			throw new RuntimeException("Erro removendo o recurso");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("DELETE");
+			conn.setRequestProperty("Content-Type", "application/json; utf-8");
+			conn.setRequestProperty("Accept", "application/json");
+			conn.setDoOutput(true);
+
+			String autenticadorEnviado = "{hashSessao:" + idSessao +"}";
+
+			try(OutputStream os = conn.getOutputStream()) {
+				byte[] input = autenticadorEnviado.getBytes("utf-8");
+				os.write(input, 0, input.length);			
+			}
+
+			try(BufferedReader br = new BufferedReader(
+					new InputStreamReader(conn.getInputStream(), "utf-8"))) {
+				StringBuilder response = new StringBuilder();
+				String responseLine = null;
+				while ((responseLine = br.readLine()) != null) {
+					response.append(responseLine.trim());
+				}
+				System.out.println(response.toString());
+				resultado = response.toString();
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception in NetClientGet:- " + e);
 		}
+		return resultado;
 	}
-
 }

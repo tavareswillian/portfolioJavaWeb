@@ -1,4 +1,4 @@
-<div id="listas">
+<div id="lista">
 <fieldset>
 	<legend>Dados da nova lista</legend>
 		<div id="controlgroup">

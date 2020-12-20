@@ -34,12 +34,19 @@ public class Usuario {
 	@Override
 	public boolean equals(Object obj) {
 		Usuario usuario = (Usuario) obj;
+		String nomeAtual = this.getNome();
+		String senhaAtual = this.getPassword();
 		
-		boolean usuarioLogado = (this.nome.equals(usuario.nome) 
-									&& this.password.equals(usuario.password));
-		
-		if(usuarioLogado) System.out.println("Login realizado!");
+		String nomeUsuario = usuario.getNome();
+		String senhaUsuario = usuario.getPassword();
 
-		return usuarioLogado;
+		boolean mesmoUsuario = (!(nomeAtual.equals("") 
+									|| nomeUsuario.equals("") 
+									|| senhaAtual.equals("") 
+									|| senhaUsuario.equals(""))
+								&& nomeAtual.equals(nomeUsuario) 
+								&& senhaAtual.equals(senhaUsuario));
+		
+		return mesmoUsuario;
 	}
 }

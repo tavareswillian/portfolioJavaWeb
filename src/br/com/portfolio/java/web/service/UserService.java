@@ -10,18 +10,20 @@ import br.com.portfolio.java.web.dto.Usuario;
 public class UserService {
 	
 	private static List<Usuario> listaUsuario;
-	private static List<HttpSession> sessoesLogadas = new ArrayList<HttpSession>();
+	private static List<String> sessoesLogadas;
 	
 	public static List<Usuario> carregaUsuarios(){
 		
 		listaUsuario = new ArrayList<Usuario>();
-		String[] usernames = {
+		sessoesLogadas = new ArrayList<String>();
+		
+		String[] usr = {
 				"admin",
 				"user"
 		};
 		
 		Usuario usuario;
-		for (String nome : usernames) {
+		for (String nome : usr) {
 			usuario = new Usuario();
 			usuario.setNome(nome);
 			usuario.setPassword("1234");
@@ -44,14 +46,19 @@ public class UserService {
 	}
 	
 	public static boolean verificaSessao(HttpSession sessao) {
-		boolean isLogged = sessoesLogadas.contains(sessao);
+		boolean isLogged = false;
+		if(sessao != null && sessoesLogadas.contains(sessao.getId())) isLogged = true;
 		System.out.println("Sessão existe no banco de dados? "+ isLogged);
 		return isLogged;
 	}
 	public static void adicionaSessao(HttpSession sessao) {
-		sessoesLogadas.add(sessao);
+		sessoesLogadas.add(sessao.getId());
 	}
 	public static void removeSessao(HttpSession sessao) {
-		sessoesLogadas.remove(sessao);
+		sessoesLogadas.remove(sessao.getId());
+	}
+
+	public static List<String> getSessoesLogadas() {
+		return sessoesLogadas;
 	}
 }

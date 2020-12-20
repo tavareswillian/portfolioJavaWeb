@@ -1,8 +1,7 @@
 package br.com.portfolio.java.web.util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public interface Acao {
-	boolean executar(HttpServletRequest request, HttpServletResponse response);
+	boolean executar(HttpSession sessao);
 }

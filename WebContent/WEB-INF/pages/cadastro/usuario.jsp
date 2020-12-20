@@ -1,4 +1,4 @@
-<div id="usuarios">
+<div id="usuario">
 <fieldset>
 	<legend>Dados do novo usuário [1]</legend>
 		<div id="controlgroup">

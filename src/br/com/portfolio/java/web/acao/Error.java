@@ -4,12 +4,16 @@ import javax.servlet.http.HttpSession;
 
 import br.com.portfolio.java.web.util.Acao;
 
-public class Iniciar implements Acao {
-
+public class Error implements Acao {
+	
 	@Override
 	public boolean executar(HttpSession sessao) {
-		sessao.setAttribute("targetPage", "Cadastrar");	
+		
+		System.out.println("[ Error ]");
+		sessao.setAttribute("targetPage", "login.jsp");
+		
 		return false;
 	}
+
 
 }

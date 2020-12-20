@@ -1,24 +1,21 @@
 package br.com.portfolio.java.web.acao;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import br.com.portfolio.java.web.Principal;
 import br.com.portfolio.java.web.service.UserService;
 import br.com.portfolio.java.web.util.Acao;
+import br.com.portfolio.java.web.util.PortfolioClientAPI;
 
 public class Sair implements Acao {
 
 	@Override
-	public boolean executar(HttpServletRequest request, HttpServletResponse response) {
+	public boolean executar(HttpSession sessao) {
 
-		System.out.println("[ Sair ]");
-		String mensagem = "<p style='color: green;'><b>Sessão encerrada!</b></p>";
-		
-		request.setAttribute("targetPage", "login.jsp");
-		request.setAttribute("mensagem", mensagem);
-		
-		UserService.removeSessao(Principal.getCurrentSession());
+		System.out.println("[ Sair ]");		
+		UserService.removeSessao(sessao);
+		PortfolioClientAPI.removeAutenticador(sessao.getId());
+		sessao.setAttribute("usr", null);
+		sessao.setAttribute("password", null);
 		
 		return true;
 	}

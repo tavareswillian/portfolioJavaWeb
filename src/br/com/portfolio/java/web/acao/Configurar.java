@@ -2,29 +2,32 @@ package br.com.portfolio.java.web.acao;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import br.com.portfolio.java.web.Principal;
-import br.com.portfolio.java.web.service.FuctionalityService;
+import br.com.portfolio.java.web.dto.Menu;
 import br.com.portfolio.java.web.service.PageService;
 import br.com.portfolio.java.web.util.Acao;
 
 public class Configurar implements Acao {
 
 	@Override
-	public boolean executar(HttpServletRequest request, HttpServletResponse response) {
+	public boolean executar(HttpSession sessao) {
 		
 		System.out.println("[ Configurar ]");
-		request.setAttribute("targetPage", "index.jsp");
+		sessao.setAttribute("targetPage", "MenuLoader");
+		sessao.setAttribute("targetPagePrev", "index.jsp");
 		String prefixPath = "configuracoes/";
-		List<String> listaInclude = FuctionalityService.consultaFuncionalidades(prefixPath, prefixPath, Principal.getUsername());
 		
-		request.setAttribute("menuBody", listaInclude);
-		request.setAttribute("optionList", PageService.obtemMenuOpcoes(prefixPath, Principal.getUsername()));
-		request.setAttribute("functionList", listaInclude);
+		sessao.setAttribute("prefixPath", prefixPath);
+		sessao.setAttribute("menuList", PageService.loadMenuList(sessao));
 
-		return true;
+		List<Menu> listaMenu = PageService.loadMenuList(sessao);
+		sessao.setAttribute("menuList", listaMenu);
+		
+		if(listaMenu == null) {
+			sessao.setAttribute("targetPage", "Error");
+		}
+		return false;
 	}
 
 

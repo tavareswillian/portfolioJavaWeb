@@ -1,6 +1,8 @@
 package br.com.portfolio.java.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.portfolio.java.web.service.PageService;
 import br.com.portfolio.java.web.service.UserService;
 import br.com.portfolio.java.web.util.Acao;
 
@@ -19,58 +20,66 @@ public class Principal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	RequestDispatcher requestDispatcher;
 	private static HttpSession currentSession;
-	private static String username;
 	private static String acaoRealizada;
+	private static List<String> errorList;
+	private static boolean manterSessao = false;
 
 	public Principal() {
 		super();
 		System.out.println("Servlet Principal inicada...");
 		UserService.carregaUsuarios();
-//		PageService.carregaDadosPaginas();
+		errorList = new ArrayList<String>();
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String pathClass = "br.com.portfolio.java.web.acao.";
-		acaoRealizada = request.getParameter("acao");	
-		setCurrentSession(request.getSession());
-		if(acaoRealizada == null) setAcaoRealizada("Login");
-		
-		if(UserService.verificaSessao(getCurrentSession())) {
-			if(acaoRealizada == null) setAcaoRealizada("Iniciar");
-			setAcaoRealizada(acaoRealizada);
-			if(currentSession != null) {
-				
-//				String path = PageService.listaPathPages.get(acaoRealizada);
-				
-				request.setAttribute("menuList", PageService.loadMenuList(username));
-//				request.setAttribute("optionList", PageService.obtemMenuOpcoes(path));
-//				request.setAttribute("functionList", PageService.getFunctionList());
-				
-				if(!(acaoRealizada.equals("Login") || acaoRealizada.equals("Sair"))) {
-					String mensagem  = "Bem vindo(a) "+ currentSession.getAttribute("username").toString() +"!";
-					request.setAttribute("mensagem", mensagem);
-				}
-			}
-		}
 
+ 		String pathClass = "br.com.portfolio.java.web.acao.";
+ 		
+ 		if(request.getSession() == null) System.out.println("Sessão nula!");
+ 		
+		System.out.println("Sessões: " + UserService.getSessoesLogadas());
+		
+		String usr = (String) request.getParameter("usr");
+		String password = (String) request.getParameter("password");
+		
+		if(usr != null) {
+			currentSession.setAttribute("usr", usr);
+			currentSession.setAttribute("password", password);
+		}else {
+			acaoRealizada = "Login";
+		}
+		
+		setCurrentSession(request.getSession());
+		acaoRealizada = (String) request.getParameter("acao");
+		currentSession.setAttribute("acao", acaoRealizada);
+		manterSessao = UserService.verificaSessao(currentSession);	
+		
+		if(acaoRealizada == null || manterSessao) {
+			acaoRealizada = "Login";
+		}
+		
 		try {
 			String acaoClasse = pathClass+getAcaoRealizada();
-			
-			Acao acao = (Acao) Class.forName(acaoClasse).newInstance();
-			if(acao.executar(request, response)) {
-				String pagePath = "WEB-INF/pages/";
-				String targetPage = pagePath  + (String) request.getAttribute("targetPage");
-				requestDispatcher = request.getRequestDispatcher(targetPage);
-				System.out.println("Sucesso! [Acao: " +targetPage+"]");
-			} else{
-				String targetPage = "principal?acao=" + (String) request.getAttribute("targetPage");
-				requestDispatcher = request.getRequestDispatcher(targetPage);
-				System.out.println("Sucesso! [Acao: " +targetPage+"]");
-			};
 
+			Acao acao = (Acao) Class.forName(acaoClasse).newInstance();
+			String targetPage = "";
+			if(acao.executar(currentSession)) targetPage = "WEB-INF/pages/";
+			else targetPage = "principal?acao=";
+
+			if(acaoRealizada.equals("Sair")) {
+				String mensagem = "<p style='color: green;'><b>Sessão encerrada!</b></p>";
+				request.setAttribute("mensagem", mensagem);
+				targetPage += "login.jsp";
+			} else {
+				targetPage += (String) currentSession.getAttribute("targetPage");
+			}
+			
+			requestDispatcher = request.getRequestDispatcher(targetPage);
+			System.out.println("Sucesso! [Acao: " +targetPage+"]");
+			
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
+			currentSession.setAttribute("acao","Error");
 		}
 
 		requestDispatcher.forward(request, response);
@@ -82,16 +91,11 @@ public class Principal extends HttpServlet {
 	public static void setCurrentSession(HttpSession currentSession) {
 		Principal.currentSession = currentSession;
 	}
-	public static String getUsername() {
-		return username;
-	}
-	public static void setUsername(String username) {
-		Principal.username = username;
-	}
 	public static String getAcaoRealizada() {
 		return acaoRealizada;
 	}
 	public static void setAcaoRealizada(String acaoRealizada) {
 		Principal.acaoRealizada = acaoRealizada;
+		currentSession.setAttribute("acao", acaoRealizada);
 	}
 }

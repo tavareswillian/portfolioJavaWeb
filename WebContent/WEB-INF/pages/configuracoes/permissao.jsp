@@ -1,4 +1,4 @@
-<div id="permissoes"><!-- Controlgroup -->
+<div id="permissao"><!-- Controlgroup -->
 <fieldset>
 	<legend>Dados da nova lista</legend>
 		<div id="controlgroup">

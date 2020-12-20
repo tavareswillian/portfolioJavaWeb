@@ -4,29 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuctionalityService {
-	public static List<String> consultaFuncionalidades(String menuName, String prefixPath, String username){
-
-		List<String> listaInclude = new ArrayList<String>();
-		String[] listaFuncionalidade;
+	public static List<String> consultaFuncionalidades(String usr){
 		
-		if(username.equals("admin")) {
-			String[] funcionalidade = {
-					"usuario","lista","funcionalidade","documento","duvida","evento","perfil","permissao","politica","repositorio"
-			};
+		List<String> listaFuncionalidade = new ArrayList<String>();
+		
+		if(usr == null) {
 			
-			listaFuncionalidade = funcionalidade;
+		} else if (usr.equals("admin")) {
+			listaFuncionalidade.add("usuario");
+			listaFuncionalidade.add("lista");
+			listaFuncionalidade.add("funcionalidade");
+			listaFuncionalidade.add("documento");
+			listaFuncionalidade.add("duvida");
+			listaFuncionalidade.add("evento");
+			listaFuncionalidade.add("perfil");
+			listaFuncionalidade.add("permissao");
+			listaFuncionalidade.add("politica");
+			listaFuncionalidade.add("repositorio");
 		} else {
-			String[] funcionalidade = {
-					"lista","documento","duvida","evento"
-			};
-			
-			listaFuncionalidade = funcionalidade;
+			listaFuncionalidade.add("lista");
+			listaFuncionalidade.add("documento");
+			listaFuncionalidade.add("duvida");
+			listaFuncionalidade.add("evento");
 		}
-
-		for (String funcionalidade : listaFuncionalidade) {
-			listaInclude.add(prefixPath + funcionalidade + ".jsp");
-		}
-
-		return listaInclude;
+		
+		return listaFuncionalidade;
 	}
 }
